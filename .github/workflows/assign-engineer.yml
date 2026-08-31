@@ -1,0 +1,18 @@
+name: "Debug PD assignee"
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  lookup-engineer:
+    steps:
+      - uses: elastic/gh-action-webcal-retriever@v1
+        id: calendar
+        with:
+          webcal_url: 'webcal://elastic.pagerduty.com/private/2238cc9569fa79ef05c1127cd484be602c9080f89d82c0e00775b88ade23ee7c/feed/P414YL0'
+      - name: Show duty persons (primary)
+        run: echo "${{ steps.pagerduty.outputs.person_id }}"
